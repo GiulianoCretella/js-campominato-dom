@@ -1,5 +1,10 @@
-    
-     function selezioneLivello() {
+    function getRandomInt(min, max){
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max -min) + min);
+    }
+
+    function selezioneLivello() {
       
         let difficoltà = document.getElementById("difficoltàMenu");
         let indiceOpzione = difficoltà.selectedIndex;
@@ -19,6 +24,15 @@
         stampareGriglia(colNumber,colsPerSide);
     }
 
+    let bombsArray = [];
+    let bombNumber = 16;
+    let attempt = 0;
+    let maxAttempts; 
+    // Il computer deve generare 16 numeri casuali nello stesso range della difficoltà prescelta: le bombe.
+    // I numeri nella lista delle bombe non possono essere duplicati.
+    // generare sedici numeri da 1 a sedici nel range della difficoltà 
+    // non far duplicare i numeri della lista 
+
     function stampareGriglia(colNumber, colsPerSide) {
         console.log(colNumber);
         let bloccoCentrale = document.querySelector('.my_container');
@@ -32,6 +46,15 @@
         bloccoCentrale.append(mainRow);
     }
 
+    function genBombs(colNumber){
+        maxAttempts = colNumber - bombNumber;
+        for( let i = 1; bombsArray.length < bombNumber;i++){
+            let bombsInn = getRandomInt(1, colNumber)
+           if(!bombsArray.includes(bombsInn)){
+               bombsArray.push(bombsInn)
+           }
+        }
+    }
     function stampaCella(colNumber,colsPerSide){
         let cols = document.createElement('div');
         cols.setAttribute('class', 'col my-col');
@@ -41,10 +64,24 @@
         cols.addEventListener('click', cambiaColore);
         return cols
     }
-
     function cambiaColore(){
-        this.style.background = "#6495ED";
+       let num = parseInt(this.innerText);
+       console.log(num)
+       attempt++;
+       if(bombsArray.includes(num)){
+           this.style.background = "red";
+           this.style.color = "white";
+           gameover()
+       }else{
+           this.style.background = "#6495ED";
+           this.style.color = "white";
+       }  
+       this.removeEventListener("click", cambiaColore);
+      
     }
+   function gameover(){
+     
+   }
 document.getElementById('bottonePlay').addEventListener('click', selezioneLivello);
 // Il computer deve generare 16 numeri casuali nello stesso range della difficoltà prescelta: le bombe.
 // I numeri nella lista delle bombe non possono essere duplicati.
@@ -56,16 +93,6 @@ function getRandomInt(min, max){
     return Math.floor(Math.random() * (max -min) + min);
 }
 
-let bombsArray = [];
-let bombNumber = 16;
-
-function genBombs(colNumber){
-    for( let i = 1; bombsArray.length < bombNumber;i++){
-        let bombsInn = getRandomInt(1, colNumber)
-       if(!bombsArray.includes(bombsInn)){
-           bombsArray.push(bombsInn)
-       }
-       console.log(bombsArray)
-    }
-
-}
+// In seguito l'utente clicca su una cella: se il numero è presente nella lista dei numeri generati - abbiamo calpestato una bomba - la cella si colora di rosso e la partita termina, altrimenti la cella cliccata si colora di azzurro e l'utente può continuare a cliccare sulle altre celle.
+// nella funzione colora se clicchiamo su una bomba deve colorarsi di rosso faccio terminare la partita
+// altrimenti di blu e continuo a giocare
