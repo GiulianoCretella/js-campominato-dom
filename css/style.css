@@ -57,6 +57,9 @@ main{
     color: white;
 }
 
+.bombe{
+    transform: scale(4);
+}
 /* footer  */
 footer{
     line-height: 40px;

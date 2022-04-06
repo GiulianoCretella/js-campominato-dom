@@ -84,14 +84,13 @@
       
     }
    function gameover(){
-       alert('Hai Perso!');
        let caselle = document.querySelectorAll('.my-col');
        console.log('leggo array',caselle);
        for(let i = 0; i < caselle.length; i++){
            if(bombsArray.includes(i + 1)){
                caselle[i].style.background = "red";
                caselle[i].style.color = "white"; 
-               caselle[i].innerHTML = `<img class="img-fluid" src="./img/5a371a5a34df47.5239089615135606662166.png" alt="bomba"></img>`
+               caselle[i].innerHTML = `<img class="img-fluid bombe" src="./img/5a371a5a34df47.5239089615135606662166.png" alt="bomba"></img>`
               
            }
            caselle[i].removeEventListener('click', cambiaColore)
