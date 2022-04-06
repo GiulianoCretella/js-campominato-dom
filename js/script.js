@@ -5,7 +5,7 @@
     }
 
     function selezioneLivello() {
-      
+        bombsArray.length= 0;
         let difficoltà = document.getElementById("difficoltàMenu");
         let indiceOpzione = difficoltà.selectedIndex;
         let opzione = difficoltà.options[indiceOpzione];
@@ -23,7 +23,6 @@
         genBombs(colNumber)
         stampareGriglia(colNumber,colsPerSide);
     }
-
     let bombsArray = [];
     let bombNumber = 16;
     let attempt = 0;
@@ -67,20 +66,34 @@
     function cambiaColore(){
        let num = parseInt(this.innerText);
        console.log(num)
-       attempt++;
        if(bombsArray.includes(num)){
+           this.innerHTML = `<img class="img-fluid" src="./img/5a371a5a34df47.5239089615135606662166.png" alt="bomba"></img>`
            this.style.background = "red";
-           this.style.color = "white";
+           this.style.color = "white"; 
            gameover()
-       }else{
-           this.style.background = "#6495ED";
-           this.style.color = "white";
-       }  
-       this.removeEventListener("click", cambiaColore);
+        } else {
+            this.style.background = "#6495ED";
+            this.style.color = "white";
+            attempt++;
+            if(attempt===maxAttempts){
+            gameover()
+            }
+        }
+
       
     }
    function gameover(){
-     
+       alert('Hai Perso!');
+       let caselle = document.querySelectorAll('.my-col');
+       console.log('leggo array',caselle);
+       for(let i = 0; i < caselle.length; i++){
+           if(bombsArray.includes(i + 1)){
+               caselle[i].style.background = "red";
+               caselle[i].style.color = "white"; 
+               caselle[i].innerHTML = `<img class="img-fluid" src="./img/5a371a5a34df47.5239089615135606662166.png" alt="bomba"></img>`
+           }
+       }
+
    }
 document.getElementById('bottonePlay').addEventListener('click', selezioneLivello);
 // Il computer deve generare 16 numeri casuali nello stesso range della difficoltà prescelta: le bombe.
