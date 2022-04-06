@@ -78,6 +78,7 @@
             if(attempt===maxAttempts){
             gameover()
             }
+           this.removeEventListener('click', cambiaColore)
         }
 
       
@@ -91,7 +92,9 @@
                caselle[i].style.background = "red";
                caselle[i].style.color = "white"; 
                caselle[i].innerHTML = `<img class="img-fluid" src="./img/5a371a5a34df47.5239089615135606662166.png" alt="bomba"></img>`
+              
            }
+           caselle[i].removeEventListener('click', cambiaColore)
        }
 
    }
