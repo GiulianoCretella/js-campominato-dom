@@ -56,8 +56,11 @@ main{
     background-color:#6495ED;
     color: white;
 }
-
 .bombe{
+    transform: scale(2);
+    transition: all 0.3s ease;
+}
+.bombe:hover{
     transform: scale(4);
 }
 /* footer  */
